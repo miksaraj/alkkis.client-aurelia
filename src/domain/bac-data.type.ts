@@ -1,5 +1,5 @@
-import { Product } from "@/domain/product.type"
-import { Drinker } from "@/domain/drinker.type"
+import { Product } from "./product.type"
+import { Drinker } from "./drinker.type"
 
 export interface BacData {
     products: Product[];

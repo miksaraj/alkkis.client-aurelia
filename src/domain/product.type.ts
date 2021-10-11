@@ -3,4 +3,5 @@ export interface Product {
     num: number;
     alkopros: number;
     price: number;
+    alkolink?: string;
 }

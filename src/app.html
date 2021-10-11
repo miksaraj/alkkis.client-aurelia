@@ -1,8 +1,43 @@
 <template>
-  <h1>${message}</h1>
   <div class="container">
     <div>
+      <img class="logo" src="../static/Logo_alkit.png" alt="Alkoholistit asialla">
+      <section>
+        <div class="box">
+          <h1 class="subtitle">Juomarin parametrit</h1>
+          <label class="inline" for="gender">Sukupuoli:</label>
+          <select class="inline" id="gender" value.bind="drinker.gender">
+            <option>Valitse...</option>
+            <option repeat.for="gender of genders" value.bind="gender.value">${gender.text}</option>
+          </select>
+          <br>
+          <label for="weight">Paino (kg):</label>
+          <input class="stacked" type="number" id="weight" value.bind="drinker.weight">
+          <label for="time">Juoma-aika tunneissa:</label>
+          <input class="stacked" type="number" id="time" value.bind="drinker.time">
+        </div>
+      </section>
+      <section>
+        <div class="box">
+          <h1 class="subtitle">Tuotehaku</h1>
+          <label class="inline" for="search-text">Hakusana</label>
+          <input class="inline" type="text" id="search-text" value.bind="searchText">
+          <button class="grey" click.trigger="search()">Hae</button>
+          <div if.bind="products.length > 0">
+            <ul repeat.for="product of products">
+              <li>
+                <a href="${product.alkolink}" target="_blank" rel="noopener noreferrer">
+                  {{ product.name }}
+                </a>
+                {{ product.alkopros }} - {{ product.price }}
+                <input type="checkbox" value.bind="product" checked.bind="selected">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
       <button class="green" click.trigger="calculateBAC()">Laske</button>
+      <p v-if="result">${result}</p>
     </div>
   </div>
 </template>

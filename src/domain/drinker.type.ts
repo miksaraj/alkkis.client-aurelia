@@ -8,3 +8,8 @@ export interface Drinker {
     time: number;
     gender: Gender
 }
+
+export interface GenderView {
+  value: Gender;
+  text: string
+}
