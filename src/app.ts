@@ -24,6 +24,15 @@ export class App {
     }
   ]
 
+  /**
+   * Note: the url differs between backend implementations:
+   * NestJS implementation: localhost:3000/v1/alko/search?...
+   * Ts.ED implementation: localhost:8083/v1/alko/search?...
+   * FoalTS implementation not functional as of yet
+   *
+   * They will be standardised once I get to it, but for
+   * now the callable url depends on used backend version.
+   */
   public async search(): Promise<void> {
     const productsList: Product[] = await fetch(`http://localhost:3000/api/search?name=${this.searchText}`)
     .then(res => res.json())
@@ -37,6 +46,15 @@ export class App {
     return `https://www.alko.fi/tuotteet/${productNumber}/`
   }
 
+  /**
+   * Note: the url differs between backend implementations:
+   * NestJS implementation: localhost:3000/v1/bac/
+   * Ts.ED implementation: localhost:8083/v1/bac/
+   * FoalTS implementation: localhost:3001/bac/
+   *
+   * They will be standardised once I get to it, but for
+   * now the callable url depends on used backend version.
+   */
   public async calculateBAC(): Promise<void> {
     const data: BacData = {
       products: this.products,
