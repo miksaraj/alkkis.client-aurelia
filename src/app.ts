@@ -1,6 +1,6 @@
 import { Product} from "./domain/product.type"
 import { Drinker, Gender, GenderView } from "./domain/drinker.type"
-import { BacData } from "./domain/bac-data.type"
+import { BacData, BacRepresentation } from "./domain/bac-data.type"
 import "../static/main.css"
 
 export class App {
@@ -24,17 +24,6 @@ export class App {
     }
   ]
 
-  /**
-   * Note: the url differs between backend implementations:
-   * NestJS implementation: localhost:3000/v1/alko/search?...
-   * Ts.ED implementation: localhost:8083/v1/alko/search?...
-   * FoalTS implementation not functional as of yet
-   *
-   * They will be standardised once I get to it, but for
-   * now the callable url depends on used backend version.
-   *
-   * Target standardised endpoint: localhost:3000/api/v1/search?...
-   */
   public async search(): Promise<void> {
     const productsList: Product[] = await fetch(`http://localhost:3000/api/v1/search?name=${this.searchText}`)
     .then(res => res.json())
@@ -48,24 +37,13 @@ export class App {
     return `https://www.alko.fi/tuotteet/${productNumber}/`
   }
 
-  /**
-   * Note: the url differs between backend implementations:
-   * NestJS implementation: localhost:3000/v1/bac/
-   * Ts.ED implementation: localhost:8083/v1/bac/
-   * FoalTS implementation: localhost:3001/bac/
-   *
-   * They will be standardised once I get to it, but for
-   * now the callable url depends on used backend version.
-   *
-   * Target standardised endpoint: localhost:3000/api/v1/bac/
-   */
   public async calculateBAC(): Promise<void> {
     const data: BacData = {
-      products: this.products,
+      products: this.selected,
       drinker: this.drinker
     }
 
-    const bac = await fetch(`http://localhost:3000/api/v1/bac`, {
+    const representation: BacRepresentation = await fetch(`http://localhost:3000/api/v1/bac`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -74,6 +52,6 @@ export class App {
       }
     })
     .then(res => res.json())
-    console.log(bac)
+    this.result = representation.text
   }
 }

@@ -5,3 +5,7 @@ export interface BacData {
     products: Product[];
     drinker: Drinker;
 }
+
+export interface BacRepresentation {
+    text: string
+}

@@ -27,10 +27,10 @@
             <ul repeat.for="product of products">
               <li>
                 <a href="${product.alkolink}" target="_blank" rel="noopener noreferrer">
-                  {{ product.name }}
+                  ${product.name}
                 </a>
-                {{ product.alkopros }} - {{ product.price }}
-                <input type="checkbox" value.bind="product" checked.bind="selected">
+                ${product.alkopros} - ${product.price}
+                <input type="checkbox" model.bind="product" checked.bind="selected">
               </li>
             </ul>
           </div>
