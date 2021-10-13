@@ -32,9 +32,11 @@ export class App {
    *
    * They will be standardised once I get to it, but for
    * now the callable url depends on used backend version.
+   *
+   * Target standardised endpoint: localhost:3000/api/v1/search?...
    */
   public async search(): Promise<void> {
-    const productsList: Product[] = await fetch(`http://localhost:3000/api/search?name=${this.searchText}`)
+    const productsList: Product[] = await fetch(`http://localhost:3000/api/v1/search?name=${this.searchText}`)
     .then(res => res.json())
     productsList.forEach(product => {
       product.alkolink = App.getAlkoLink(product.num)
@@ -54,6 +56,8 @@ export class App {
    *
    * They will be standardised once I get to it, but for
    * now the callable url depends on used backend version.
+   *
+   * Target standardised endpoint: localhost:3000/api/v1/bac/
    */
   public async calculateBAC(): Promise<void> {
     const data: BacData = {
@@ -61,7 +65,7 @@ export class App {
       drinker: this.drinker
     }
 
-    const bac = await fetch(`http://localhost:3000/api/bac`, {
+    const bac = await fetch(`http://localhost:3000/api/v1/bac`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
