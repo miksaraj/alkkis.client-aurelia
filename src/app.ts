@@ -1,4 +1,4 @@
-import { Product, Drinker, Gender, GenderView, BacRequestDto, BacRepresentation } from './alkkis'
+import { Product, Drinker, Gender, GenderView, BacRequestDto, BacRepresentation } from './alkkis.types'
 import "../static/main.css"
 
 export class App {
@@ -22,19 +22,9 @@ export class App {
     }
   ]
 
-  // TODO: remove these extra steps after repopulating database with entries containing link data
   public async search(): Promise<void> {
-    const productsList: Product[] = await fetch(`http://localhost:3000/api/v1/search?name=${this.searchText}`)
+    this.products = await fetch(`http://localhost:3000/api/v1/search?name=${this.searchText}`)
     .then(res => res.json())
-    productsList.forEach(product => {
-      product.alkoLink = App.getAlkoLink(product.num)
-    })
-    this.products = productsList
-  }
-
-  // TODO: rm after repopulating database with entries containing this data
-  private static getAlkoLink(productNumber: number): string {
-    return `https://www.alko.fi/tuotteet/${productNumber}/`
   }
 
   public async calculateBAC(): Promise<void> {
