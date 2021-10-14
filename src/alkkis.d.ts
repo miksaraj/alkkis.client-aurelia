@@ -4,6 +4,8 @@
 
 export const AlcoholMetabolismRate: 0.017
 
+export const AlcoholToGramsMultiplier: 0.7892
+
 export type BacValue = number
 
 export enum Gender {
@@ -28,6 +30,7 @@ export interface Drinker {
 }
 
 export interface Product {
+  _id: string
   num: number,
   name: string,
   maker: string,
